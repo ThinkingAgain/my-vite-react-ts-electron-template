@@ -11,12 +11,12 @@ const createWindow = () => {
     })
 
     // 加载应用 --打包react应用后
-    win.loadFile(path.join(__dirname, '../dist/index.html'))
+    //win.loadFile(path.join(__dirname, '../dist/index.html'))
 
     // 加载应用 --开发调试react应用时
     // 因为我们是加载的react生成的页面, 并不是静态页面
     // 所以loafFile换成loadURL
-    //win.loadURL('http://localhost:5173')
+    win.loadURL('http://localhost:5173')
 
     // 解决应用启动白屏问题
     /*win.on('ready-to-show', () => {

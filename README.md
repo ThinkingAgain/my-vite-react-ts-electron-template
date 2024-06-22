@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+# Electron + React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这个模板以vite-react-ts为基础创建, 增加electron支持, 采用electron forge作为打包工具.
 
-Currently, two official plugins are available:
+## 项目结构
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- react代码位于src目录
+- electron代码位于electron目录, 使用TypeScript, 调试时先编译生成js, 放在main目录中
+- 打包应用会自动生成out目录
 
-## Expanding the ESLint configuration
+## 调试
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
+- 同时调试electron和react 
 
 ```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+///electorn/main.ts
+
+// 加载应用 --开发调试react应用时
+// 因为我们是加载的react生成的页面, 并不是静态页面
+// 所以loafFile换成loadURL
+win.loadURL('http://localhost:5173')
+```
+执行如下命令进行调试
+```js
+npm run dev:electron
+```
+- 只调试electron
+  
+```js
+///先build react
+npm run build:react
+
+/// 修改 electorn/main.ts
+
+// 加载应用 --打包react应用后
+win.loadFile(path.join(__dirname, '../dist/index.html'))
+
+/// 执行如下命令进行调试
+npm run dev:electron
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 打包
+```js
+///执行打包命令, 生成目录为out
+npm run make
+```
