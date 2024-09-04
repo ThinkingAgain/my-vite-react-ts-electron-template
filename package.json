@@ -12,7 +12,7 @@
   "scripts": {
     "electron": "electron .",
     "dev:react": "vite",
-    "dev:electron": "npm run build:electron && electron .",
+    "dev:electron": "npm run build:electron && chcp 65001 && electron .",
     "build:react": "tsc && vite build",
     "build:electron": "tsc -p electron",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
