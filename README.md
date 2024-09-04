@@ -22,6 +22,7 @@ win.loadURL('http://localhost:5173')
 ```
 执行如下命令进行调试
 ```js
+npm run dev:react
 npm run dev:electron
 ```
 - 只调试electron
